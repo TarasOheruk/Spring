@@ -1,6 +1,7 @@
 package com.example.registring;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AppController {
 
     @Autowired
-    public UserRepository repo;
+    UserService userService;
 
-    @GetMapping ("")
+    @GetMapping ("/main")
     public String view(){
         return "index";
     }
@@ -24,8 +25,13 @@ public class AppController {
     }
     @PostMapping("/process_register")
     public String Regisrt(User user){
-
-        repo.save(user);
+        userService.saveDefaultUser(user);
         return "index";
+    }
+
+    @GetMapping("/list_user")
+    public String users()
+    {
+        return "users";
     }
 }
