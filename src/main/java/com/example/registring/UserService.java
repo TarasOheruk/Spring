@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
@@ -11,6 +13,24 @@ public class UserService {
 
     @Autowired
     RoleRepository roleRepository;
+
+    public List<User> listAll() {
+        return repo.findAll();
+    }
+    public User get(Long id) {
+        return repo.findById(id).get();
+    }
+
+    public List<Role> listRoles() {
+        return roleRepository.findAll();
+    }
+    public void save(User user) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String encodedpassword = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(encodedpassword);
+
+        repo.save(user);
+    }
 
     public void saveDefaultUser(User user)
     {
@@ -21,9 +41,6 @@ public class UserService {
         Role role = roleRepository.findbyName("User");
         user.addRole(role);
         repo.save(user);
-
-
-
     }
 
 }
