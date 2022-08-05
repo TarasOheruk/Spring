@@ -1,6 +1,10 @@
 package com.example.registring;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,6 +33,9 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
+
     public void addRole(Role role) {
         this.roles.add(role);
     }
@@ -39,6 +46,14 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public Long getId() {
