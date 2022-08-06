@@ -36,6 +36,18 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
+
+
+    @Column
+    private Long dayswithus;
+
+    public Long getDayswithus() {
+        return dayswithus;
+    }
+
+    public void setDayswithus(Long dayswithus) {
+        this.dayswithus = dayswithus;
+    }
     public void addRole(Role role) {
         this.roles.add(role);
     }

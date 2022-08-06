@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -36,7 +37,10 @@ public class AppController {
     public String users(Model model)
     {
         List<User> listUsers = userService.listAll();
+        userService.DifferenceBetweenDate(listUsers);
+
         model.addAttribute("listUsers", listUsers);
+
         return "users";
     }
 
