@@ -13,12 +13,6 @@
 
 <div class="container text-center">
 
-    <form th:action="@{/logout}" method="post" >
-        <p>Hello : <b>[[${#request.userPrincipal.principal.getUsername}]]</b></p>
-
-        <input type="submit" value="Out!">
-
-    </form>
 
     <table class="table table-striped table-bordered">
         <thead>

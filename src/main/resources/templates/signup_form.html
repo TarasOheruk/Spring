@@ -12,6 +12,10 @@
     <div class="container text-center">
         <div><h1>Registration</h1></div>
 
+        <div th:if="${dupl}" class="alert alert-danger text-center" role="alert">
+            [[${dupl}]]
+        </div>
+
         <form th:action="@{/process_register}" method="post"
         style="max-width: 600px;margin: 0 auto"
         th:object="${user}">

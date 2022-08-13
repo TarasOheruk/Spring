@@ -1,14 +1,14 @@
 package com.example.registring;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -28,8 +28,13 @@ public class AppController {
         return "signup_form";
     }
     @PostMapping("/process_register")
-    public String Regisrt(User user){
-        userService.saveDefaultUser(user);
+    public String Regisrt(User user, RedirectAttributes ra){
+        try {
+            userService.saveDefaultUser(user);
+        } catch (DataIntegrityViolationException e) {
+            ra.addFlashAttribute("dupl","Username or Email alredy exist");
+            return "redirect:/register";
+        }
         return "index";
     }
 
